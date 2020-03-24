@@ -25,6 +25,8 @@ To run the program, right-click on the file name in the tab header, and click "R
 
 ![board-setup-and-first-move](images/board-setup-and-first-move.png "The initial board set-up and the first move by red.")
 
+After a number of moves, a black soldier at e4 moves to e3 and puts the red general in checkmate. Notice how the red general is unable to move to any adjacent point without being in check. Since the red general is in checkmate, the black side wins.
+
 ![end-game-state](images/end-game-state.png "The red general is checkmated, and the black side wins.")
 
 ## Built With
