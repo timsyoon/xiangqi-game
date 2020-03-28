@@ -8,7 +8,7 @@ I used the PyCharm IDE to write, run, and test XiangqiGame.py. The following ins
 
 1. Download XiangqiGame.py and extract the zip file into the directory of your choice.
 
-2. Download and install the latest version of [Python](https://www.python.org/downloads/).
+2. Download and install the [Python 3.8.1](https://www.python.org/downloads/release/python-381/).
 
 3. Download and install the latest version of the [PyCharm Community Edition](https://www.jetbrains.com/pycharm/download/#section=windows).
 
