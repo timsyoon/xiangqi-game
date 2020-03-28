@@ -30,7 +30,7 @@ After a number of moves, a black soldier at e4 moves to e3 and puts the red gene
 ![end-game-state](images/end-game-state.png "The red general is checkmated, and the black side wins.")
 
 ## Built With
-* Python 3.8
+* Python 3.8.1
 * PyCharm Community Edition 2019.3.1
 
 ## Author
