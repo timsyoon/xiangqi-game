@@ -414,10 +414,10 @@ class TestXiangqiGame(unittest.TestCase):
 
         # Test the black horses
         self.assertEqual(board[2,10].get_contains().get_shadows(),
-                         [(3,8), (1,8)])
+                         [(1,8), (3,8)])
 
         self.assertEqual(board[8,10].get_contains().get_shadows(),
-                         [(9,8), (7,8)])
+                         [(7,8), (9,8)])
 
     def test_13(self):   # passed
         """
@@ -451,17 +451,21 @@ class TestXiangqiGame(unittest.TestCase):
 
         # Test the red cannons
         self.assertEqual(board[(2,3)].get_contains().get_shadows(),
-                         [(2,4), (2,5), (2,6), (2,7), (2,10)])
+                         [(2,2), (2,4), (2,5), (2,6), (2,7), (2,10), (3,3),
+                          (4,3), (5,3), (6,3), (7,3), (1,3)])
 
         self.assertEqual(board[(8,3)].get_contains().get_shadows(),
-                         [(8,4), (8,5), (8,6), (8,7), (8,10)])
+                         [(8,2), (8,4), (8,5), (8,6), (8,7), (8,10), (9,3),
+                         (7,3), (6,3), (5,3), (4,3), (3,3)])
 
         # Test the black cannons
         self.assertEqual(board[(2,8)].get_contains().get_shadows(),
-                         [(2,7), (2,6), (2,5), (2,4), (2,1)])
+                         [(2,7), (2,6), (2,5), (2,4), (2,1), (2,9), (3,8),
+                          (4,8), (5,8), (6,8), (7,8), (1,8)])
 
         self.assertEqual(board[(8,8)].get_contains().get_shadows(),
-                         [(8,7), (8,6), (8,5), (8,4), (8,1)])
+                         [(8,7), (8,6), (8,5), (8,4), (8,1), (8,9), (9,8),
+                          (7,8), (6,8), (5,8), (4,8), (3,8)])
 
     def test_15(self):   # passed
         """
