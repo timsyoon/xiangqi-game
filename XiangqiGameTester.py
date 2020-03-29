@@ -3736,3 +3736,151 @@ class TestXiangqiGame(unittest.TestCase):
         self.assertEqual(move_result, True)
         self.assertEqual(black_in_check, False)
         self.assertEqual(state, "UNFINISHED")
+
+    def test_35(self):   # passed
+        """
+        Test whether a cannon is able to move north for its first move.
+        """
+        game = XiangqiGame()
+        game.print_board()
+
+        move_1 = game.make_move('b3', 'b2')  # Red move
+        print("b3-b2")
+        game.print_board()
+
+        self.assertTrue(move_1)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "black")
+
+        move_2 = game.make_move('b8', 'b3')  # Black move
+        print("b8-b3")
+        game.print_board()
+
+        self.assertTrue(move_2)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "red")
+
+        move_3 = game.make_move('h3', 'h2')  # Red move
+        print("h3-h2")
+        game.print_board()
+
+        self.assertTrue(move_3)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "black")
+
+        move_4 = game.make_move('h8', 'h5')  # Black move
+        print("h8-h5")
+        game.print_board()
+
+        self.assertTrue(move_4)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "red")
+
+    def test_36(self):   # passed
+        """
+        Test whether a cannon is able to move east for its first move.
+        """
+        game = XiangqiGame()
+        game.print_board()
+
+        move_1 = game.make_move('b3', 'g3')  # Red move
+        print("b3-g3")
+        game.print_board()
+
+        self.assertTrue(move_1)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "black")
+
+        move_2 = game.make_move('b8', 'g8')  # Black move
+        print("b8-g8")
+        game.print_board()
+
+        self.assertTrue(move_2)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "red")
+
+        move_3 = game.make_move('h3', 'i3')  # Red move
+        print("h3-i3")
+        game.print_board()
+
+        self.assertTrue(move_3)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "black")
+
+        move_4 = game.make_move('h8', 'i8')  # Black move
+        print("h8-i8")
+        game.print_board()
+
+        self.assertTrue(move_4)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "red")
+
+    def test_37(self):   # passed
+        """
+        Test whether a cannon is able to move south for its first move.
+        """
+        game = XiangqiGame()
+        game.print_board()
+
+        move_1 = game.make_move('b3', 'b7')  # Red move
+        print("b3-b7")
+        game.print_board()
+
+        self.assertTrue(move_1)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "black")
+
+        move_2 = game.make_move('b8', 'b9')  # Black move
+        print("b8-b9")
+        game.print_board()
+
+        self.assertTrue(move_2)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "red")
+
+    def test_38(self):   # passed
+        """
+        Test whether a cannon is able to move west for its first move.
+        """
+        game = XiangqiGame()
+        game.print_board()
+
+        move_1 = game.make_move('h3', 'c3')  # Red move
+        print("h3-c3")
+        game.print_board()
+
+        self.assertTrue(move_1)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "black")
+
+        move_2 = game.make_move('h8', 'c8')  # Black move
+        print("h8-c8")
+        game.print_board()
+
+        self.assertTrue(move_2)
+        self.assertEqual(game.get_game_state(), "UNFINISHED")
+        self.assertFalse(game.is_in_check("red"))
+        self.assertFalse(game.is_in_check("black"))
+        self.assertEqual(game.get_whose_turn(), "red")
