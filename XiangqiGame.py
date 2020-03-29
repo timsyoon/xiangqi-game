@@ -2,27 +2,26 @@
 # Date of Original Submission: March 10, 2020
 # Description: This file defines a class named XiangqiGame for playing an
 # abstract board game called xiangqi. In this strategy game, two players (red
-# and black) move their own various pieces on a board with the objective of
-# checkmating the opponent's "general" piece. The class is implemented based
-# on the "Board", "Rules", and "Pieces" sections of the following Wikipedia
-# page: https://en.wikipedia.org/wiki/Xiangqi. Other classes include Board,
-# Point, Piece, General, Advisor, Elephant, Horse, Chariot, Cannon, and
-# Soldier. All class data members are private.
+# and black) move pieces on a board with the objective of checkmating the
+# opponent's "general" piece. The class is implemented based on the "Board",
+# "Rules", and "Pieces" sections of the following Wikipedia page:
+# https://en.wikipedia.org/wiki/Xiangqi. Other classes include Board, Point,
+# Piece, General, Advisor, Elephant, Horse, Chariot, Cannon, and Soldier. All
+# class data members are private.
 #
 # Rules regarding perpetual check or chasing are not implemented, but the
 # class is designed to correctly handle a stalemate, as well as all piece-
 # specific rules (e.g. elephants can't cross the river). Locations on the
 # board are initially specified using algebraic notation, with columns labeled
-# a-i (a column letter is typically converted to an integer from 1-9) and rows
+# a-i (where the letter is typically converted to an integer from 1-9) and rows
 # labeled 1-10, with row 1 being the red side and row 10 the black side. Both
-# column and row numbers start with 1 instead of 0.
+# column and row numbers are 1-based.
 #
 # Language note: Throughout this file, the term "shadow" and its variants are
-# frequently used. To clarify what this term means: If a player's piece
-# "shadows" a point, this means that the piece can legally move into the
-# point in the player's next turn. Legal moves include those where a player's
-# own general is put or left in check, since the current implementation
-# reverses such moves.
+# frequently used. If a player's piece "shadows" a point, this means that the
+# piece can legally move into the point in the player's next turn. Legal moves
+# include those where a player's own general is put or left in check, since the
+# current implementation reverses such moves.
 
 
 class XiangqiGame:
@@ -69,17 +68,6 @@ class XiangqiGame:
         practice), "RED_WON", or "BLACK_WON".
         """
         self._game_state = new_state
-
-    def set_in_check(self, player_color):
-        """
-        Take as a parameter either "red" or "black" for the player color and
-        indicate that the player's general is now in check.
-        """
-        if player_color == "red":
-            self._red_in_check = True
-
-        if player_color == "black":
-            self._black_in_check = True
 
     def remove_from_check(self, player_color):
         """
@@ -1263,13 +1251,6 @@ class Point:
         """
         self._shadowed_by.append(piece)
 
-    def remove_shadowed_by(self, piece):
-        """
-        Take as a parameter a piece object and remove that piece from the list
-        keeping track of what pieces are shadowing the point.
-        """
-        self._shadowed_by.remove(piece)
-
     def clear_shadowed_by(self):
         """
         Delete all pieces from the list keeping track of what pieces are
@@ -1340,26 +1321,6 @@ class Piece:
         Return the list of coordinates (if any) that the piece is shadowing.
         """
         return self._shadows
-
-    def add_shadows(self, coordinate):
-        """
-        Add a coordinate to the list of coordinates that the piece is
-        shadowing.
-        """
-        self._shadows.append(coordinate)
-
-    def remove_shadows(self, coordinate):
-        """
-        Remove a coordinate from the list of coordinates that the piece is
-        shadowing.
-        """
-        self._shadows.remove(coordinate)
-
-    def clear_shadows(self):
-        """
-        Clear the entire list of coordinates that the piece is shadowing.
-        """
-        self._shadows.clear()
 
 
 class General(Piece):
@@ -2654,6 +2615,7 @@ def main():
     print()
     game = XiangqiGame()
     game.print_board()
+
 
     move_1 = game.make_move('c4', 'c5')  # Red move
     print("c4-c5")
