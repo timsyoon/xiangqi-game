@@ -142,28 +142,28 @@ class XiangqiGame:
         if self.get_game_state() != "UNFINISHED":   # If either player has won
             return False
 
-        # If the move is legal, make the indicated move
+        # If the move is legal, make the move
         if dest_coord in curr_piece.get_shadows():
 
-            # Remove any captured piece, but temporarily hold it in case the
-            # move needs to be reversed
+            # Temporarily hold the piece to be captured in case the move needs
+            # to be reversed
             discarded_piece = brd[dest_coord].get_contains()
 
-            # Have the destination point hold the piece being moved
+            # Move the piece to the destination point
             brd[dest_coord].set_contains(curr_piece)
-            curr_piece.set_col(dest_coord[0])   # Update the piece's column
-            curr_piece.set_row(dest_coord[1])   # Update the piece's row
+            curr_piece.set_col(dest_coord[0])
+            curr_piece.set_row(dest_coord[1])
 
             # Remove the source point's contents
             brd[source_coord].set_contains(None)
 
-            # Update _shadows for every piece on the board
+            # Update every piece's shadows
             for coord in brd:
                 if brd[coord].get_contains() is not None:
                     piece = brd[coord].get_contains()
                     piece.update_shadows(brd)
 
-            # Update _shadowed_by for every point on the board
+            # Update every point's shadowed_by
             self._board.update_points_shadows()
 
             # Look for the player's own general
@@ -182,27 +182,26 @@ class XiangqiGame:
 
             # If the player's own general is in check, reverse the move
             if is_own_general_in_check:
-                # Have the moved piece go back to its former point
+                # Restore the moved piece to its original point
                 brd[source_coord].set_contains(curr_piece)
-                curr_piece.set_col(source_coord[0])  # Restore the piece's col
-                curr_piece.set_row(source_coord[1])  # Restore the piece's row
+                curr_piece.set_col(source_coord[0])
+                curr_piece.set_row(source_coord[1])
 
                 # Have the discarded piece go back to its former point
                 brd[dest_coord].set_contains(discarded_piece)
 
-                # Restore _shadows for every piece on the board
+                # Restore every piece's shadows
                 for coord in brd:
                     if brd[coord].get_contains() is not None:
                         piece = brd[coord].get_contains()
                         piece.update_shadows(brd)
 
-                # Restore _shadowed_by for every point on the board
+                # Restore every point's shadowed_by on the board
                 self._board.update_points_shadows()
 
                 return False
 
         # Update the game state if necessary
-
         # If either player's general is shadowed, put it in check
 
         # Check whether the red general is in check
@@ -217,19 +216,17 @@ class XiangqiGame:
         else:
             self._black_in_check = False
 
-        # If the red general is in check, and it cannot escape being in
-        # check, then it is checkmated and the black player wins:
+        # If the red general is in checkmate, then the black player wins
         if self._red_in_check:
             if self.is_in_checkmate("red"):
                 self._game_state = "BLACK_WON"
 
-        # If the black general is in check, and it cannot escape being in
-        # check, then it is checkmated and the red player wins:
+        # If the black general is in checkmate, then the red player wins
         if self._black_in_check:
             if self.is_in_checkmate("black"):
                 self._game_state = "RED_WON"
 
-        # Check whether the opponent is stalemated (i.e. is not in check but
+        # Check whether the opponent is stalemated (i.e. not in check but
         # has no legal moves)
 
         if self._whose_turn == "red":
@@ -1024,7 +1021,7 @@ class Board:
         keys are the board coordinates as tuples and whose values are point
         objects.
         """
-        self._board = {
+        board = {
 
             # Initialize row 1
             (1, 1): Point(1, 1, Chariot("red", 1, 1)),
@@ -1137,7 +1134,16 @@ class Board:
             (9, 10): Point(9, 10, Chariot("black", 9, 10))
         }
 
-        # Initialize each point's _shadowed_by data member
+        # Initialize each piece's shadows
+        for row in range(1, 11):
+            for col in range(1, 10):
+                if board[(col, row)].get_contains() is not None:
+                    piece = board[(col, row)].get_contains()
+                    piece.update_shadows(board)
+
+        self._board = board
+
+        # Initialize each point's shadowed_by
         self.update_points_shadows()
 
     def get_board(self):
@@ -1145,33 +1151,6 @@ class Board:
         Return the board data member.
         """
         return self._board
-
-    def print_pieces_shadows(self):
-        """
-        For every piece on the board, print out what points it is shadowing.
-        """
-        for row in range(1, 11):       # Outer loop goes through each row
-            for col in range(1, 10):   # Inner loop goes through each column
-                if self._board[(col, row)].get_contains() is not None:
-                    piece = self._board[(col, row)].get_contains()
-                    print(piece.get_color(), piece.get_type_id(), "@" + "(" +
-                          str(col) + "," + str(row) + ") " +
-                          "shadows:", piece.get_shadows())
-        print()
-
-    def print_points_shadows(self):
-        """
-        For every point on the board, print out what pieces it is shadowed by.
-        """
-        for row in range(1, 11):       # Outer loop goes through each row
-            for col in range(1, 10):   # Inner loop goes through each column
-                print("(" + str(col) + "," + str(row) + ") " +
-                      "is shadowed by: ", end='')
-                for piece in self._board[(col, row)].get_shadowed_by():
-                    print(piece.get_color(), piece.get_type_id(), "@" + "(" +
-                          str(piece.get_col()) + "," + str(piece.get_row()) +
-                          "), ", end='')
-                print()
 
     def update_points_shadows(self):
         """
@@ -1191,9 +1170,36 @@ class Board:
             if point.get_contains() is not None:
                 piece = point.get_contains()
 
-                # Update the point's _shadowed_by data member
+                # Update the point's shadowed_by
                 for shadowed_coordinate in piece.get_shadows():
                     self._board[shadowed_coordinate].add_shadowed_by(piece)
+
+    def print_pieces_shadows(self):
+        """
+        For every piece on the board, print out what points it is shadowing.
+        """
+        for row in range(1, 11):
+            for col in range(1, 10):
+                if self._board[(col, row)].get_contains() is not None:
+                    piece = self._board[(col, row)].get_contains()
+                    print(piece.get_color(), piece.get_type_id(), "@" + "(" +
+                          str(col) + "," + str(row) + ") " +
+                          "shadows:", piece.get_shadows())
+        print()
+
+    def print_points_shadows(self):
+        """
+        For every point on the board, print out what pieces it is shadowed by.
+        """
+        for row in range(1, 11):
+            for col in range(1, 10):
+                print("(" + str(col) + "," + str(row) + ") " +
+                      "is shadowed by: ", end='')
+                for piece in self._board[(col, row)].get_shadowed_by():
+                    print(piece.get_color(), piece.get_type_id(), "@" + "(" +
+                          str(piece.get_col()) + "," + str(piece.get_row()) +
+                          "), ", end='')
+                print()
 
 
 class Point:
@@ -1335,18 +1341,6 @@ class General(Piece):
         """
         super().__init__(color, col, row)
         self._type_id = 'G'                # First letter of "General"
-
-        # Initialize the list of points that the general currently shadows.
-        # If any adjacent orthogonal points are within the board and within
-        # the palace, add them to the general's _shadows data member.
-
-        # If the general is red
-        if color == "red":
-            self._shadows.append((col, row + 1))
-
-        # If the general is black
-        if self._color == "black":
-            self._shadows.append((col, row - 1))
 
     def update_shadows(self, board):
         """
@@ -1539,47 +1533,6 @@ class Advisor(Piece):
         super().__init__(color, col, row)
         self._type_id = 'A'                # First letter of "Advisor"
 
-        # Initialize the list of coordinates that the advisor currently
-        # shadows. If any points diagonal to the advisor are within the board
-        # and within the palace, add them to the advisor's _shadows data
-        # member.
-
-        # If the advisor is red
-        if color == "red":
-            # Check the northeast diagonal
-            if (4 <= (col + 1) <= 6) and (1 <= (row - 1) <= 3):
-                self._shadows.append((col + 1, row - 1))
-
-            # Check the southeast diagonal
-            if (4 <= (col + 1) <= 6) and (1 <= (row + 1) <= 3):
-                self._shadows.append((col + 1, row + 1))
-
-            # Check the southwest diagonal
-            if (4 <= (col - 1) <= 6) and (1 <= (row + 1) <= 3):
-                self._shadows.append((col - 1, row + 1))
-
-            # Check the northwest diagonal
-            if (4 <= (col - 1) <= 6) and (1 <= (row - 1) <= 3):
-                self._shadows.append((col - 1, row - 1))
-
-        # If the advisor is black
-        if color == "black":
-            # Check the northeast diagonal
-            if (4 <= (col + 1) <= 6) and (8 <= (row - 1) <= 10):
-                self._shadows.append((col + 1, row - 1))
-
-            # Check the southeast diagonal
-            if (4 <= (col + 1) <= 6) and (8 <= (row + 1) <= 10):
-                self._shadows.append((col + 1, row + 1))
-
-            # Check the southwest diagonal
-            if (4 <= (col - 1) <= 6) and (8 <= (row + 1) <= 10):
-                self._shadows.append((col - 1, row + 1))
-
-            # Check the northwest diagonal
-            if (4 <= (col - 1) <= 6) and (8 <= (row - 1) <= 10):
-                self._shadows.append((col - 1, row - 1))
-
     def update_shadows(self, board):
         """
         Take as a parameter the current board and update the advisor's list of
@@ -1728,24 +1681,6 @@ class Elephant(Piece):
         """
         super().__init__(color, col, row)
         self._type_id = 'E'                # First letter of "Elephant"
-
-        # Initialize the list of coordinates that the elephant is shadowing
-
-        # Check northeast two points diagonally
-        if (1 <= (col + 2) <= 9) and (1 <= (row - 2) <= 10):
-            self._shadows.append((col + 2, row - 2))
-
-        # Check southeast two points diagonally
-        if (1 <= (col + 2) <= 9) and (1 <= (row + 2) <= 10):
-            self._shadows.append((col + 2, row + 2))
-
-        # Check southwest two points diagonally
-        if (1 <= (col - 2) <= 9) and (1 <= (row + 2) <= 10):
-            self._shadows.append((col - 2, row + 2))
-
-        # Check northwest two points diagonally
-        if (1 <= (col - 2) <= 9) and (1 <= (row - 2) <= 10):
-            self._shadows.append((col - 2, row - 2))
 
     def update_shadows(self, board):
         """
@@ -1944,24 +1879,6 @@ class Horse(Piece):
         super().__init__(color, col, row)
         self._type_id = 'H'                # First letter of "Horse"
 
-        # Initialize the list of coordinates that the horse is shadowing
-
-        # Check northeast one point orthogonally and one point diagonally
-        if (1 <= (col + 1) <= 9) and (1 <= (row - 2) <= 10):
-            self._shadows.append((col + 1, row - 2))
-
-        # Check southeast one point orthogonally and one point diagonally
-        if (1 <= (col + 1) <= 9) and (1 <= (row + 2) <= 10):
-            self._shadows.append((col + 1, row + 2))
-
-        # Check southwest one point orthogonally and one point diagonally
-        if (1 <= (col - 1) <= 9) and (1 <= (row + 2) <= 10):
-            self._shadows.append((col - 1, row + 2))
-
-        # Check northwest one point orthogonally and one point diagonally
-        if (1 <= (col - 1) <= 9) and (1 <= (row - 2) <= 10):
-            self._shadows.append((col - 1, row - 2))
-
     def update_shadows(self, board):
         """
         Take as a parameter the current board and update the horse's list of
@@ -1971,7 +1888,8 @@ class Horse(Piece):
         col = self._col
         row = self._row
 
-        # Check for possible points that the horse can move to:
+        # Check for possible points that the horse can move to in the
+        # following order: N-NW, N-NE, E-NE, E-SE, S-SE, S-SW, W-SW, W-NW
 
         # Check the north orthogonal point
         if 1 <= (row - 1) <= 10:
@@ -2131,15 +2049,6 @@ class Chariot(Piece):
         super().__init__(color, col, row)
         self._type_id = 'C'                # First letter of "Chariot"
 
-        # Initialize the list of coordinates that the chariot is shadowing
-        if self._color == "red":
-            self._shadows.append((col, row + 1))
-            self._shadows.append((col, row + 2))
-
-        if self._color == "black":
-            self._shadows.append((col, row - 1))
-            self._shadows.append((col, row - 2))
-
     def update_shadows(self, board):
         """
         Take as a parameter the current board and update the chariot's list of
@@ -2253,21 +2162,6 @@ class Cannon(Piece):
         super().__init__(color, col, row)
         self._type_id = 'N'                # Most common letter of "Cannon"
 
-        # Initialize the list of coordinates that the cannon is shadowing
-        if self._color == "red":
-            self._shadows.append((col, row + 1))
-            self._shadows.append((col, row + 2))
-            self._shadows.append((col, row + 3))
-            self._shadows.append((col, row + 4))
-            self._shadows.append((col, row + 7))
-
-        if self._color == "black":
-            self._shadows.append((col, row - 1))
-            self._shadows.append((col, row - 2))
-            self._shadows.append((col, row - 3))
-            self._shadows.append((col, row - 4))
-            self._shadows.append((col, row - 7))
-
     def update_shadows(self, board):
         """
         Take as a parameter the current board and update the cannon's list of
@@ -2277,7 +2171,8 @@ class Cannon(Piece):
         col = self._col
         row = self._row
 
-        # Check for possible points that the cannon can move to:
+        # Check for possible points that the cannon can move to in the
+        # following order: N, S, E, W
 
         # Check the north piece(s)
         row_offset = 1
@@ -2451,13 +2346,6 @@ class Soldier(Piece):
         super().__init__(color, col, row)
         self._type_id = 'S'                # First letter of "Soldier"
         self._river_crossed = False
-
-        # Initialize the list of coordinates that the soldier is shadowing
-        if self._color == "red":
-            self._shadows.append((col, row + 1))
-
-        if self._color == "black":
-            self._shadows.append((col, row - 1))
 
     def update_shadows(self, board):
         """
