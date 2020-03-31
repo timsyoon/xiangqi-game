@@ -520,7 +520,7 @@ class TestXiangqiGame(unittest.TestCase):
         self.assertFalse(game.is_in_check("black"))
         self.assertEqual(game.get_whose_turn(), "black")
 
-    def test_18(self):   # passed
+    def test_18(self):   #
         """
         Test make_move for the red and black soldier. Test normal movement
         before the river is crossed and enhanced movement after it is crossed.
@@ -533,7 +533,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_1)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -547,7 +546,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_2)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -561,7 +559,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_3)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -575,7 +572,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_4)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -589,7 +585,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_5)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -603,7 +598,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_6)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -617,7 +611,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_7)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -631,7 +624,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_8)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -645,7 +637,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_9)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -659,7 +650,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_10)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -673,7 +663,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_11)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -687,7 +676,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_12)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -701,7 +689,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_13)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
@@ -715,7 +702,6 @@ class TestXiangqiGame(unittest.TestCase):
         game.print_board()
 
         # game.get_game_board().print_pieces_shadows()  # passed
-        # game.get_game_board().print_points_shadows()  # passed
 
         self.assertTrue(move_14)
         self.assertEqual(game.get_game_state(), "UNFINISHED")
