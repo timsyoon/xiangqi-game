@@ -2372,40 +2372,11 @@ class Soldier(Piece):
         # Check possible points that a red soldier might be able to move to
         if self._color == "red":
 
-            # If the soldier has not crossed the river, it can only move and
-            # capture by advancing one point
-            if not self._river_crossed:
-
-                # Check the south orthogonal piece
-                if 1 <= (row + 1) <= 10:
-                    if board[(col, row + 1)].get_contains() is None:
-                        self._shadows.append((col, row + 1))
-
-                    # If there is a piece on the point, check its color
-                    else:
-                        piece = board[(col, row + 1)].get_contains()
-
-                        # If the piece is the opponent's
-                        if piece.get_color() != self._color:
-                            self._shadows.append((col, row + 1))
-
             # If the soldier has crossed the river, it can move and capture
             # by advancing one point and by one point horizontally
-            else:
-                # Check the south orthogonal piece
-                if 1 <= (row + 1) <= 10:
-                    if board[(col, row + 1)].get_contains() is None:
-                        self._shadows.append((col, row + 1))
+            if self._river_crossed:
 
-                    # If there is a piece on the point, check its color
-                    else:
-                        piece = board[(col, row + 1)].get_contains()
-
-                        # If the piece is the opponent's
-                        if piece.get_color() != self._color:
-                            self._shadows.append((col, row + 1))
-
-                # Check the east orthogonal piece
+                # Check the east orthogonal point
                 if 1 <= (col + 1) <= 9:
                     if board[(col + 1, row)].get_contains() is None:
                         self._shadows.append((col + 1, row))
@@ -2418,7 +2389,7 @@ class Soldier(Piece):
                         if piece.get_color() != self._color:
                             self._shadows.append((col + 1, row))
 
-                # Check the west orthogonal piece
+                # Check the west orthogonal point
                 if 1 <= (col - 1) <= 9:
                     if board[(col - 1, row)].get_contains() is None:
                         self._shadows.append((col - 1, row))
@@ -2430,44 +2401,28 @@ class Soldier(Piece):
                         # If the piece is the opponent's
                         if piece.get_color() != self._color:
                             self._shadows.append((col - 1, row))
+
+            # Check the south orthogonal point
+            if 1 <= (row + 1) <= 10:
+                if board[(col, row + 1)].get_contains() is None:
+                    self._shadows.append((col, row + 1))
+
+                # If there is a piece on the point, check its color
+                else:
+                    piece = board[(col, row + 1)].get_contains()
+
+                    # If the piece is the opponent's
+                    if piece.get_color() != self._color:
+                        self._shadows.append((col, row + 1))
 
         # Check possible points that a black soldier might be able to move to
         if self._color == "black":
 
-            # If the soldier has not crossed the river, it can only move and
-            # capture by advancing one point
-            if not self._river_crossed:
-
-                # Check the north orthogonal piece
-                if 1 <= (row - 1) <= 10:
-                    if board[(col, row - 1)].get_contains() is None:
-                        self._shadows.append((col, row - 1))
-
-                    # If there is a piece on the point, check its color
-                    else:
-                        piece = board[(col, row - 1)].get_contains()
-
-                        # If the piece is the opponent's
-                        if piece.get_color() != self._color:
-                            self._shadows.append((col, row - 1))
-
             # If the soldier has crossed the river, it can move and capture
             # by advancing one point and by one point horizontally
-            else:
-                # Check the north orthogonal piece
-                if 1 <= (row - 1) <= 10:
-                    if board[(col, row - 1)].get_contains() is None:
-                        self._shadows.append((col, row - 1))
+            if self._river_crossed:
 
-                    # If there is a piece on the point, check its color
-                    else:
-                        piece = board[(col, row - 1)].get_contains()
-
-                        # If the piece is the opponent's
-                        if piece.get_color() != self._color:
-                            self._shadows.append((col, row - 1))
-
-                # Check the east orthogonal piece
+                # Check the east orthogonal point
                 if 1 <= (col + 1) <= 9:
                     if board[(col + 1, row)].get_contains() is None:
                         self._shadows.append((col + 1, row))
@@ -2480,7 +2435,7 @@ class Soldier(Piece):
                         if piece.get_color() != self._color:
                             self._shadows.append((col + 1, row))
 
-                # Check the west orthogonal piece
+                # Check the west orthogonal point
                 if 1 <= (col - 1) <= 9:
                     if board[(col - 1, row)].get_contains() is None:
                         self._shadows.append((col - 1, row))
@@ -2492,6 +2447,19 @@ class Soldier(Piece):
                         # If the piece is the opponent's
                         if piece.get_color() != self._color:
                             self._shadows.append((col - 1, row))
+
+            # Check the north orthogonal point
+            if 1 <= (row - 1) <= 10:
+                if board[(col, row - 1)].get_contains() is None:
+                    self._shadows.append((col, row - 1))
+
+                # If there is a piece on the point, check its color
+                else:
+                    piece = board[(col, row - 1)].get_contains()
+
+                    # If the piece is the opponent's
+                    if piece.get_color() != self._color:
+                        self._shadows.append((col, row - 1))
 
 
 def main():
