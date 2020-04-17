@@ -1,4 +1,4 @@
-# Xiangqi Game
+# XiangqiGame
 
 ## Description
 The program in XiangqiGame.py represents the playing of the board game [xiangqi](https://en.wikipedia.org/wiki/Xiangqi), also known as Chinese chess. *Xiangqi* is played between two players (one with red pieces and another with black pieces), who move their respective pieces around a board that is 9 lines wide and 10 lines long. In the course of the game, players typically capture opponent pieces and try to put the opponent's general piece in "check", meaning that the general could be captured in the next move. The ultimate objective of each player is to put the opponent's general into a situation where no matter what move the general may make, it cannot escape being in check. This situation is called "checkmate", and when it occurs, the player whose general is in checkmate loses the game and the other player wins.
